@@ -1,0 +1,33 @@
+name: SwiftLint
+
+on:
+  push:
+    branches: [ main, master, develop ]
+  pull_request:
+    branches: [ main, master, develop ]
+
+jobs:
+  swiftlint:
+    name: SwiftLint Code Quality
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Install SwiftLint
+      run: brew install swiftlint
+      
+    - name: Run SwiftLint
+      run: |
+        if [ -f ".swiftlint.yml" ]; then
+          echo "Using custom SwiftLint configuration"
+          swiftlint --strict --reporter github-actions-logging
+        else
+          echo "Using default SwiftLint configuration"
+          swiftlint --reporter github-actions-logging
+        fi
+      continue-on-error: true
+      
+    - name: SwiftLint summary
+      run: echo "✅ SwiftLint analysis complete"
