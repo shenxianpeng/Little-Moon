@@ -1,7 +1,7 @@
 # Little Moon 🌙
 
-![CI](https://github.com/shenxianpeng/Little-Moon/workflows/CI/badge.svg)
-![SwiftLint](https://github.com/shenxianpeng/Little-Moon/workflows/SwiftLint/badge.svg)
+![CI](https://github.com/shenxianpeng/Little-Moon/actions/workflows/ci.yml/badge.svg)
+![SwiftLint](https://github.com/shenxianpeng/Little-Moon/actions/workflows/swiftlint.yml/badge.svg)
 ![Platform](https://img.shields.io/badge/platform-iOS-blue.svg)
 ![Swift](https://img.shields.io/badge/Swift-5.9-orange.svg)
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
