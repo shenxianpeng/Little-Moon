@@ -22,12 +22,11 @@ jobs:
       run: |
         if [ -f ".swiftlint.yml" ]; then
           echo "Using custom SwiftLint configuration"
-          swiftlint --strict --reporter github-actions-logging
+          swiftlint --reporter github-actions-logging
         else
           echo "Using default SwiftLint configuration"
           swiftlint --reporter github-actions-logging
         fi
-      continue-on-error: true
       
     - name: SwiftLint summary
       run: echo "✅ SwiftLint analysis complete"
