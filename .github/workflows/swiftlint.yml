@@ -21,7 +21,9 @@ jobs:
     - name: Cache SwiftLint
       uses: actions/cache@v4
       with:
-        path: /opt/homebrew/Cellar/swiftlint
+        path: |
+          /opt/homebrew/Cellar/swiftlint
+          /usr/local/Cellar/swiftlint
         key: ${{ runner.os }}-swiftlint-${{ hashFiles('.swiftlint.yml') }}
         restore-keys: |
           ${{ runner.os }}-swiftlint-
@@ -35,14 +37,7 @@ jobs:
         fi
       
     - name: Run SwiftLint
-      run: |
-        if [ -f ".swiftlint.yml" ]; then
-          echo "Using custom SwiftLint configuration"
-          swiftlint --reporter github-actions-logging
-        else
-          echo "Using default SwiftLint configuration"
-          swiftlint --reporter github-actions-logging
-        fi
+      run: swiftlint --reporter github-actions-logging
       
     - name: SwiftLint summary
       run: echo "✅ SwiftLint analysis complete"
