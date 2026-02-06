@@ -18,10 +18,31 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
       
-    - name: Run SwiftLint
-      uses: norio-nomura/action-swiftlint@v3.2.1
+    - name: Cache SwiftLint
+      uses: actions/cache@v4
       with:
-        args: --reporter github-actions-logging
+        path: /opt/homebrew/Cellar/swiftlint
+        key: ${{ runner.os }}-swiftlint-${{ hashFiles('.swiftlint.yml') }}
+        restore-keys: |
+          ${{ runner.os }}-swiftlint-
+      
+    - name: Install SwiftLint
+      run: |
+        if ! command -v swiftlint &> /dev/null; then
+          brew install swiftlint
+        else
+          echo "SwiftLint already installed"
+        fi
+      
+    - name: Run SwiftLint
+      run: |
+        if [ -f ".swiftlint.yml" ]; then
+          echo "Using custom SwiftLint configuration"
+          swiftlint --reporter github-actions-logging
+        else
+          echo "Using default SwiftLint configuration"
+          swiftlint --reporter github-actions-logging
+        fi
       
     - name: SwiftLint summary
       run: echo "✅ SwiftLint analysis complete"
