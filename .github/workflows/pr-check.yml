@@ -1,0 +1,41 @@
+name: PR Check
+
+on:
+  pull_request:
+    types: [ opened, synchronize, reopened ]
+
+permissions:
+  contents: read
+
+jobs:
+  pr-validation:
+    name: PR Validation
+    runs-on: macos-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Show Xcode version
+      run: xcodebuild -version
+      
+    - name: Validate project structure
+      run: |
+        if [ ! -d "Little Moon.xcodeproj" ]; then
+          echo "Error: Xcode project not found"
+          exit 1
+        fi
+        echo "✅ Project structure is valid"
+        
+    - name: Check for build errors
+      run: |
+        xcodebuild clean build \
+          -project "Little Moon.xcodeproj" \
+          -scheme "Little Moon" \
+          -destination "platform=iOS Simulator,id=dvtdevice-DVTiOSDeviceSimulatorPlaceholder-iphonesimulator:placeholder" \
+          CODE_SIGN_IDENTITY="" \
+          CODE_SIGNING_REQUIRED=NO \
+          CODE_SIGNING_ALLOWED=NO
+          
+    - name: PR validation success
+      run: echo "✅ PR validation passed successfully"
