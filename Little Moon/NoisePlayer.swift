@@ -123,12 +123,7 @@ final class NoisePlayer: ObservableObject {
                 switch sound {
                 case .whiteNoise:
                     sample = localRNG.nextFloat() * 0.25 // softer
-                case .rain:
-                    // colored noise: low-pass the white noise by simple averaging
-                    let w = localRNG.nextFloat()
-                    sample = (w * 0.15 + previousSample * 0.85)
-                    previousSample = sample
-                case .ocean:
+                case .oceanWaves, .sea:
                     // slow sine LFO modulating noise to mimic waves
                     localPhase += Float(2 * Double.pi) * 0.2 / Float(sampleRate) // ~0.2 Hz
                     let lfo = (sinf(localPhase) + 1) * 0.5 // 0..1
@@ -269,25 +264,27 @@ final class NoisePlayer: ObservableObject {
 
 enum SoundItem: String, CaseIterable {
     case whiteNoise = "whiteNoise"
-    case rain = "rain"
-    case ocean = "ocean"
+    case oceanWaves = "oceanWaves"
+    case sea = "sea"
 
     var displayName: String {
         switch self {
         case .whiteNoise: return String(localized: "White Noise")
-        case .rain: return String(localized: "Rain")
-        case .ocean: return String(localized: "Ocean")
+        case .oceanWaves: return String(localized: "Ocean Waves")
+        case .sea:        return String(localized: "Sea")
         }
     }
 
+    // Base filename without extension; expects mp3 files in the app bundle.
     var fileName: String {
         switch self {
-        case .whiteNoise: return "white_noise"
-        case .rain: return "rain"
-        case .ocean: return "ocean"
+        case .whiteNoise: return "WhiteNoise"
+        case .oceanWaves: return "OceanWaves"
+        case .sea:        return "Sea"
         }
     }
 
+    // Prefer mp3; fallback to a few common formats if needed.
     var url: URL? {
         let exts = ["mp3", "m4a", "caf", "wav"]
         for ext in exts {

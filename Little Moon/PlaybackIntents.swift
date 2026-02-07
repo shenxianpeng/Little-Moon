@@ -12,7 +12,7 @@ struct PlayLastSoundIntent: AppIntent {
     static var description: IntentDescription { .init("Play the last selected white noise or music.") }
 
     func perform() async throws -> some IntentResult {
-        PlayerCenter.shared.player.playLast()
+        await PlayerCenter.shared.player.playLast()
         return .result()
     }
 }
@@ -22,7 +22,7 @@ struct PausePlaybackIntent: AppIntent {
     static var description: IntentDescription { .init("Pause current playback.") }
 
     func perform() async throws -> some IntentResult {
-        PlayerCenter.shared.player.pause()
+        await PlayerCenter.shared.player.pause()
         return .result()
     }
 }
@@ -32,7 +32,7 @@ struct StopPlaybackIntent: AppIntent {
     static var description: IntentDescription { .init("Stop playback.") }
 
     func perform() async throws -> some IntentResult {
-        PlayerCenter.shared.player.stop()
+        await PlayerCenter.shared.player.stop()
         return .result()
     }
 }
@@ -45,7 +45,8 @@ struct SetSleepTimerIntent: AppIntent {
     var minutes: Int
 
     func perform() async throws -> some IntentResult {
-        PlayerCenter.shared.player.startSleepTimer(minutes: minutes)
+        await PlayerCenter.shared.player.startSleepTimer(minutes: minutes)
         return .result()
     }
 }
+
