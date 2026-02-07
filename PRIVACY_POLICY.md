@@ -35,8 +35,7 @@ We may update this privacy policy from time to time. We will notify you of any c
 
 ### Contact Us
 If you have any questions about this privacy policy, please contact us at:
-- Email: shenxianpeng@gmail.com
-- GitHub: https://github.com/shenxianpeng/Little-Moon
+- Email: xianpeng.shen@gmail.com
 
 ---
 
@@ -73,5 +72,4 @@ Little Moon 对所有年龄段的用户都是安全的。我们不会有意收�
 
 ### 联系我们
 如果您对此隐私政策有任何疑问，请通过以下方式联系我们：
-- 邮箱：shenxianpeng@gmail.com
-- GitHub：https://github.com/shenxianpeng/Little-Moon
+- 邮箱：xianpeng.shen@gmail.com
